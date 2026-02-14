@@ -242,6 +242,16 @@
             box-shadow: 0 16px 30px rgba(26, 31, 43, 0.18);
         }
 
+        .gallery button {
+            border: none;
+            padding: 0;
+            background: none;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
         .gallery img {
             width: 100%;
             height: 100%;
@@ -262,6 +272,48 @@
             border-radius: 999px;
             font-size: 13px;
             font-weight: 600;
+        }
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(18, 22, 30, 0.85);
+            display: grid;
+            place-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+            z-index: 20;
+        }
+
+        .lightbox.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .lightbox img {
+            max-width: min(92vw, 1100px);
+            max-height: 84vh;
+            border-radius: 18px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        .lightbox button {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--ink);
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            display: grid;
+            place-items: center;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         }
 
         .pricing {
@@ -381,7 +433,7 @@
         <header>
             <div class="brand">
                 <div class="brand-badge">DJI</div>
-                <span>Photos & Videos Aeriennes</span>
+                <span>Elric Dufresne - Photos & Videos Aeriennes</span>
             </div>
             <nav>
                 <a href="#services">Prestations</a>
@@ -393,8 +445,8 @@
 
         <section class="hero" id="top">
             <div class="hero-copy animate">
-                <h1>Des images aeriennes qui subliment votre bien immobilier.</h1>
-                <p>Vente immobiliere, suivi de chantier ou patrimoine familial : je capture des angles uniques avec un drone DJI, en haute resolution 2.7K QHD.</p>
+                <h1>Des images aeriennes qui subliment votre bien et votre patrimoine.</h1>
+                <p>Je m'appelle Elric Dufresne. La prise de vue drone est une de mes passions, que je pratique a cote de mes etudes en BUT informatique. Je capture des angles uniques pour valoriser un bien, conserver de belles images de votre patrimoine et inspirer confiance.</p>
                 <div class="hero-actions">
                     <a class="btn btn-primary" href="#contact">Demander un devis</a>
                     <a class="btn btn-secondary" href="#galerie">Voir les exemples</a>
@@ -435,23 +487,36 @@
             <p class="lead animate delay-1">Quelques ambiances pour illustrer le rendu final. <span class="highlight">Photos et videos 2.7K QHD</span></p>
             <div class="gallery">
                 <figure class="animate delay-1">
-                    <img src="images/DJI_0268.JPG" alt="Vue aerienne de campagne">
+                    <button type="button" data-lightbox="images/DJI_0268.JPG" aria-label="Agrandir la photo Terrain et environnement">
+                        <img src="images/DJI_0268.JPG" alt="Vue aerienne de campagne">
+                    </button>
                     <figcaption>Terrain et environnement</figcaption>
                 </figure>
                 <figure class="animate delay-2">
-                    <img src="images/DJI_0245.JPG" alt="Vue aerienne d'une villa">
+                    <button type="button" data-lightbox="images/DJI_0245.JPG" aria-label="Agrandir la photo Maison et toiture">
+                        <img src="images/DJI_0245.JPG" alt="Vue aerienne d'une villa">
+                    </button>
                     <figcaption>Maison et toiture</figcaption>
                 </figure>
                 <figure class="animate delay-3">
-                    <img src="images/DJI_0245.JPG" alt="Vue aerienne de chantier">
+                    <button type="button" data-lightbox="images/DJI_0245.JPG" aria-label="Agrandir la photo Suivi de chantier">
+                        <img src="images/DJI_0245.JPG" alt="Vue aerienne de chantier">
+                    </button>
                     <figcaption>Suivi de chantier</figcaption>
                 </figure>
                 <figure class="animate delay-2">
-                    <img src="images/DJI_0912.JPG" alt="Vue aerienne de chateau">
+                    <button type="button" data-lightbox="images/DJI_0912.JPG" aria-label="Agrandir la photo Patrimoine">
+                        <img src="images/DJI_0912.JPG" alt="Vue aerienne de chateau">
+                    </button>
                     <figcaption>Patrimoine</figcaption>
                 </figure>
             </div>
         </section>
+
+        <div class="lightbox" id="lightbox" aria-hidden="true">
+            <button type="button" id="lightbox-close" aria-label="Fermer l'image">&times;</button>
+            <img id="lightbox-image" alt="Apercu agrandi">
+        </div>
 
         <section class="section" id="tarifs">
             <h2 class="animate">Tarifs</h2>
@@ -522,5 +587,45 @@
             <span>Copyright 2026 - Tous droits reserves</span>
         </footer>
     </div>
+    <script>
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImage = document.getElementById("lightbox-image");
+        const lightboxClose = document.getElementById("lightbox-close");
+        const lightboxTriggers = document.querySelectorAll("[data-lightbox]");
+
+        const openLightbox = (src, altText) => {
+            lightboxImage.src = src;
+            lightboxImage.alt = altText || "Apercu agrandi";
+            lightbox.classList.add("open");
+            lightbox.setAttribute("aria-hidden", "false");
+        };
+
+        const closeLightbox = () => {
+            lightbox.classList.remove("open");
+            lightbox.setAttribute("aria-hidden", "true");
+            lightboxImage.src = "";
+        };
+
+        lightboxTriggers.forEach((trigger) => {
+            trigger.addEventListener("click", () => {
+                const src = trigger.getAttribute("data-lightbox");
+                const img = trigger.querySelector("img");
+                openLightbox(src, img ? img.alt : "");
+            });
+        });
+
+        lightboxClose.addEventListener("click", closeLightbox);
+        lightbox.addEventListener("click", (event) => {
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                closeLightbox();
+            }
+        });
+    </script>
 </body>
 </html>
