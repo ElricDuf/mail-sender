@@ -71,23 +71,66 @@
             box-shadow: 0 10px 18px rgba(255, 122, 89, 0.35);
         }
 
-        nav {
+        header {
+            position: relative;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .nav-links {
             display: flex;
             gap: 18px;
             font-size: 14px;
             color: var(--ink-soft);
         }
 
-        nav a {
+        .nav a {
             padding: 6px 10px;
             border-radius: 999px;
             transition: all 0.2s ease;
         }
 
-        nav a:hover {
+        .nav a:hover {
             background: rgba(26, 31, 43, 0.08);
             color: var(--ink);
         }
+
+        .nav-toggle {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 999px;
+            border: 1px solid rgba(26, 31, 43, 0.15);
+            background: rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+        }
+
+        .nav-toggle span {
+            width: 18px;
+            height: 2px;
+            background: var(--ink);
+            position: relative;
+            display: block;
+        }
+
+        .nav-toggle span::before,
+        .nav-toggle span::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 18px;
+            height: 2px;
+            background: var(--ink);
+        }
+
+        .nav-toggle span::before { top: -6px; }
+        .nav-toggle span::after { top: 6px; }
 
         .hero {
             display: grid;
@@ -422,7 +465,25 @@
 
         @media (max-width: 800px) {
             header { flex-direction: column; align-items: flex-start; }
-            nav { flex-wrap: wrap; }
+            .nav { width: 100%; justify-content: space-between; }
+            .nav-toggle { display: inline-flex; }
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                margin-top: 10px;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 12px;
+                background: rgba(255, 255, 255, 0.95);
+                border-radius: 16px;
+                box-shadow: 0 14px 30px rgba(26, 31, 43, 0.18);
+                border: 1px solid rgba(26, 31, 43, 0.08);
+                display: none;
+                z-index: 10;
+            }
+            .nav-links.open { display: flex; }
             .hero-visual img { height: 280px; }
             .hero-badges { position: static; margin-top: 12px; }
         }
@@ -435,11 +496,16 @@
                 <div class="brand-badge">DJI</div>
                 <span>Elric Dufresne - Photos & Videos Aeriennes</span>
             </div>
-            <nav>
-                <a href="#services">Prestations</a>
-                <a href="#galerie">Galerie</a>
-                <a href="#tarifs">Tarifs</a>
-                <a href="#contact">Contact</a>
+            <nav class="nav" aria-label="Navigation principale">
+                <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links">
+                    <span></span>
+                </button>
+                <div class="nav-links" id="nav-links">
+                    <a href="#services">Prestations</a>
+                    <a href="#galerie">Galerie</a>
+                    <a href="#tarifs">Tarifs</a>
+                    <a href="#contact">Contact</a>
+                </div>
             </nav>
         </header>
 
@@ -626,6 +692,23 @@
                 closeLightbox();
             }
         });
+
+        const navToggle = document.querySelector(".nav-toggle");
+        const navLinks = document.getElementById("nav-links");
+
+        if (navToggle && navLinks) {
+            navToggle.addEventListener("click", () => {
+                const isOpen = navLinks.classList.toggle("open");
+                navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+            });
+
+            navLinks.querySelectorAll("a").forEach((link) => {
+                link.addEventListener("click", () => {
+                    navLinks.classList.remove("open");
+                    navToggle.setAttribute("aria-expanded", "false");
+                });
+            });
+        }
     </script>
 </body>
 </html>
