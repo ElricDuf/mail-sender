@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Photos & Videos Aeriennes - Drone DJI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1a1f2b;
+            --ink-soft: #4a556b;
+            --sand: #f6f0e6;
+            --clay: #d2a679;
+            --sky: #94b9ff;
+            --ember: #ff7a59;
+            --card: #ffffff;
+            --ring: rgba(26, 31, 43, 0.12);
+            --shadow: 0 18px 50px rgba(26, 31, 43, 0.18);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; }
+        body {
+            font-family: "Space Grotesk", system-ui, sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(1200px 500px at 10% -10%, #ffd7a8 0%, rgba(255, 215, 168, 0) 60%),
+                radial-gradient(900px 420px at 95% 0%, #b9d4ff 0%, rgba(185, 212, 255, 0) 55%),
+                var(--sand);
+            line-height: 1.6;
+        }
+
+        img { max-width: 100%; display: block; }
+        a { color: inherit; text-decoration: none; }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 20px 80px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 10px 0 40px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+
+        .brand-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--ember), var(--sky));
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: 0 10px 18px rgba(255, 122, 89, 0.35);
+        }
+
+        nav {
+            display: flex;
+            gap: 18px;
+            font-size: 14px;
+            color: var(--ink-soft);
+        }
+
+        nav a {
+            padding: 6px 10px;
+            border-radius: 999px;
+            transition: all 0.2s ease;
+        }
+
+        nav a:hover {
+            background: rgba(26, 31, 43, 0.08);
+            color: var(--ink);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 36px;
+            align-items: center;
+            padding: 20px 0 40px;
+        }
+
+        .hero-copy h1 {
+            font-family: "Fraunces", serif;
+            font-size: clamp(32px, 5vw, 54px);
+            line-height: 1.1;
+            margin-bottom: 18px;
+        }
+
+        .hero-copy p {
+            color: var(--ink-soft);
+            font-size: 17px;
+            margin-bottom: 22px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 20px;
+            border-radius: 999px;
+            font-weight: 600;
+            border: 1px solid transparent;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--ink);
+            color: #fff;
+            box-shadow: 0 12px 30px rgba(26, 31, 43, 0.25);
+        }
+
+        .btn-secondary {
+            border-color: var(--ring);
+            color: var(--ink);
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            position: relative;
+            padding: 12px;
+        }
+
+        .hero-visual .card {
+            background: var(--card);
+            border-radius: 24px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid rgba(26, 31, 43, 0.08);
+        }
+
+        .hero-visual img {
+            width: 100%;
+            height: 360px;
+            object-fit: cover;
+        }
+
+        .hero-badges {
+            position: absolute;
+            bottom: -10px;
+            left: -10px;
+            display: grid;
+            gap: 12px;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 12px 14px;
+            box-shadow: 0 10px 18px rgba(26, 31, 43, 0.12);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .section {
+            margin-top: 70px;
+        }
+
+        .section h2 {
+            font-family: "Fraunces", serif;
+            font-size: clamp(26px, 4vw, 38px);
+            margin-bottom: 14px;
+        }
+
+        .section p.lead {
+            color: var(--ink-soft);
+            max-width: 720px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+            margin-top: 26px;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 22px;
+            box-shadow: 0 14px 30px rgba(26, 31, 43, 0.12);
+            border: 1px solid rgba(26, 31, 43, 0.08);
+        }
+
+        .card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: var(--ink-soft);
+            font-size: 15px;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(255, 122, 89, 0.18), rgba(148, 185, 255, 0.2));
+            padding: 2px 8px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 22px;
+        }
+
+        .gallery figure {
+            overflow: hidden;
+            border-radius: 18px;
+            position: relative;
+            min-height: 220px;
+            box-shadow: 0 16px 30px rgba(26, 31, 43, 0.18);
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery figure:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery figcaption {
+            position: absolute;
+            bottom: 14px;
+            left: 14px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .pricing {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-top: 26px;
+        }
+
+        .pricing .card {
+            padding: 26px;
+        }
+
+        .pricing .price {
+            font-size: 30px;
+            font-weight: 700;
+            margin: 12px 0 16px;
+        }
+
+        .contact-wrap {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+            margin-top: 26px;
+        }
+
+        form {
+            background: var(--card);
+            padding: 24px;
+            border-radius: 22px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(26, 31, 43, 0.08);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(26, 31, 43, 0.15);
+            border-radius: 12px;
+            margin-bottom: 14px;
+            font-family: inherit;
+            font-size: 15px;
+            background: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px 18px;
+            border-radius: 999px;
+            border: none;
+            font-weight: 600;
+            background: var(--ember);
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 12px 24px rgba(255, 122, 89, 0.3);
+        }
+
+        button:hover { transform: translateY(-2px); }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 22px;
+            padding: 22px;
+            border: 1px solid rgba(26, 31, 43, 0.08);
+        }
+
+        .contact-info ul {
+            list-style: none;
+            margin-top: 16px;
+            display: grid;
+            gap: 10px;
+            color: var(--ink-soft);
+        }
+
+        .footer {
+            margin-top: 70px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(26, 31, 43, 0.08);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--ink-soft);
+        }
+
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate {
+            animation: rise 0.8s ease both;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+
+        @media (max-width: 800px) {
+            header { flex-direction: column; align-items: flex-start; }
+            nav { flex-wrap: wrap; }
+            .hero-visual img { height: 280px; }
+            .hero-badges { position: static; margin-top: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header>
+            <div class="brand">
+                <div class="brand-badge">DJI</div>
+                <span>Photos & Videos Aeriennes</span>
+            </div>
+            <nav>
+                <a href="#services">Prestations</a>
+                <a href="#galerie">Galerie</a>
+                <a href="#tarifs">Tarifs</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </header>
+
+        <section class="hero" id="top">
+            <div class="hero-copy animate">
+                <h1>Des images aeriennes qui subliment votre bien immobilier.</h1>
+                <p>Vente immobiliere, suivi de chantier ou patrimoine familial : je capture des angles uniques avec un drone DJI, en haute resolution 2.7K QHD.</p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="#contact">Demander un devis</a>
+                    <a class="btn btn-secondary" href="#galerie">Voir les exemples</a>
+                </div>
+            </div>
+            <div class="hero-visual animate delay-1">
+                <div class="card">
+                    <img src="images/DJI_0245.JPG" alt="Vue aerienne d'une maison moderne">
+                </div>
+                <div class="hero-badges">
+                    <div class="badge">Livraison 24h</div>
+                    <div class="badge">Reglementation respectee</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="services">
+            <h2 class="animate">Prestations pour valoriser votre bien</h2>
+            <p class="lead animate delay-1">Des prises de vue propres et professionnelles pour mettre en confiance vos acheteurs, suivre vos travaux ou conserver un souvenir unique.</p>
+            <div class="cards">
+                <div class="card animate delay-1">
+                    <h3>Vente immobiliere</h3>
+                    <p>Montrez la toiture, le terrain et l'environnement global pour declencher le coup de coeur.</p>
+                </div>
+                <div class="card animate delay-2">
+                    <h3>Suivi de chantier</h3>
+                    <p>Photos regulieres pour constater l'avancee, partager avec les equipes ou garder un historique fiable.</p>
+                </div>
+                <div class="card animate delay-3">
+                    <h3>Patrimoine</h3>
+                    <p>Chateau, jardin ou demeure familiale : conservez des images uniques et durables.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="galerie">
+            <h2 class="animate">Galerie</h2>
+            <p class="lead animate delay-1">Quelques ambiances pour illustrer le rendu final. <span class="highlight">Photos et videos 2.7K QHD</span></p>
+            <div class="gallery">
+                <figure class="animate delay-1">
+                    <img src="images/DJI_0268.JPG" alt="Vue aerienne de campagne">
+                    <figcaption>Terrain et environnement</figcaption>
+                </figure>
+                <figure class="animate delay-2">
+                    <img src="images/DJI_0245.JPG" alt="Vue aerienne d'une villa">
+                    <figcaption>Maison et toiture</figcaption>
+                </figure>
+                <figure class="animate delay-3">
+                    <img src="images/DJI_0245.JPG" alt="Vue aerienne de chantier">
+                    <figcaption>Suivi de chantier</figcaption>
+                </figure>
+                <figure class="animate delay-2">
+                    <img src="images/DJI_0912.JPG" alt="Vue aerienne de chateau">
+                    <figcaption>Patrimoine</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="section" id="tarifs">
+            <h2 class="animate">Tarifs</h2>
+            <p class="lead animate delay-1">A partir de 50 euros selon la demande et le deplacement. Envoi par lien securise ou cle USB sur demande.</p>
+            <div class="pricing">
+                <div class="card animate delay-1">
+                    <h3>Essentiel</h3>
+                    <p>10 a 15 photos retouchees.</p>
+                    <div class="price">50 EUR</div>
+                    <p>Ideal pour une annonce immobiliere.</p>
+                </div>
+                <div class="card animate delay-2">
+                    <h3>Suivi chantier</h3>
+                    <p>Pack de 4 passages mensuels.</p>
+                    <div class="price">Sur devis</div>
+                    <p>Comparatif avant / pendant / apres.</p>
+                </div>
+                <div class="card animate delay-3">
+                    <h3>Patrimoine</h3>
+                    <p>Photos + video courte.</p>
+                    <div class="price">Sur devis</div>
+                    <p>Souvenir unique et partageable.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="contact">
+            <h2 class="animate">Contact</h2>
+            <p class="lead animate delay-1">Parlez-moi de votre projet : localisation, type de bien, attentes et delai. Reponse rapide.</p>
+            <div class="contact-wrap">
+                <form action="https://formspree.io/f/mvzbkevj" method="POST" class="animate delay-1">
+                    <label for="nom">Nom</label>
+                    <input type="text" id="nom" name="name" placeholder="Votre nom" required>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="vous@email.fr" required>
+
+                    <label for="type">Type de prestation</label>
+                    <select id="type" name="type">
+                        <option>Vente immobiliere</option>
+                        <option>Suivi de chantier</option>
+                        <option>Patrimoine</option>
+                        <option>Autre</option>
+                    </select>
+
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Decrivez votre besoin" required></textarea>
+
+                    <button type="submit">Envoyer ma demande</button>
+                </form>
+                <div class="contact-info animate delay-2">
+                    <h3>Coordonnees</h3>
+                    <p>Disponible pour des missions ponctuelles dans votre region. Deplacement possible sur demande.</p>
+                    <ul>
+                        <li>Disponibilite : sous 72h</li>
+                        <li>Livraison : 24h apres la prise de vue</li>
+                        <li>Securite : respect total de la reglementation</li>
+                    </ul>
+                    <div class="hero-actions" style="margin-top: 18px;">
+                        <a class="btn btn-secondary" href="#top">Retour en haut</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <span>Photos & Videos Aeriennes - Drone DJI</span>
+            <span>Copyright 2026 - Tous droits reserves</span>
+        </footer>
+    </div>
+</body>
+</html>
